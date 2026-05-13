@@ -7,12 +7,6 @@ def init_connection() -> Client:
     try:
         url = st.secrets["SUPABASE_URL"]
         key = st.secrets["SUPABASE_KEY"]
-        
-        # Sanitize URL to prevent PGRST125 Invalid path errors
-        # If the user included /rest/v1 in the URL, remove it since create_client appends it.
-        url = url.rstrip('/')
-        if url.endswith('/rest/v1'):
-            url = url[:-8]
             
         return create_client(url, key)
     except Exception as e:
