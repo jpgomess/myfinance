@@ -6,9 +6,10 @@ st.set_page_config(page_title="Registro Manual", page_icon="📝")
 st.title("Adicionar Lançamento Manual")
 
 with st.form("manual_entry_form"):
-    data = st.date_input("Data", datetime.date.today())
-    entrada_saida = st.selectbox("Entrada/Saída", ["Entrada", "Saída"])
-    tipo = st.text_input("Tipo")
+    col1, col2, col3 = st.columns(3)
+    data = col1.date_input("Data", datetime.date.today())
+    entrada_saida = col2.selectbox("Entrada/Saída", ["Entrada", "Saída"])
+    tipo = col3.text_input("Tipo")
     detalhes = st.text_input("Detalhes")
     valor = st.number_input("Valor", min_value=0.01, format="%.2f")
     categoria = st.selectbox("Categoria", ["Transporte", "Lazer", "Casa", "Alimentação", "Saúde", "Educação", "Outros", "Pendente"])
