@@ -11,11 +11,11 @@ with st.form("manual_entry_form"):
     entrada_saida = col2.selectbox("Entrada/Saída", ["Entrada", "Saída"])
     tipo = col3.text_input("Tipo")
     detalhes = col4.text_input("Detalhes")
-    
+
     col1, col2, col3 = st.columns([1,1,2])
     valor = col1.number_input("Valor", min_value=0.01, format="%.2f")
     categoria = col2.selectbox("Categoria", ["Transporte", "Lazer", "Casa", "Alimentação", "Saúde", "Educação", "Outros", "Pendente"])
-    descricao = col3.text_area("Descrição")
+    descricao = col3.text_input("Descrição")
     
     submitted = st.form_submit_button("Salvar Registro")
     
