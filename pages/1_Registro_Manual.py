@@ -6,15 +6,16 @@ st.set_page_config(page_title="Registro Manual", page_icon="📝")
 st.title("Adicionar Lançamento Manual")
 
 with st.form("manual_entry_form"):
-    with st.columns(4) as (col1, col2, col3, col4):
-        data = col1.date_input("Data", datetime.date.today())
-        entrada_saida = col2.selectbox("Entrada/Saída", ["Entrada", "Saída"])
-        tipo = col3.text_input("Tipo")
-        detalhes = col4.text_input("Detalhes")
-    with st.columns([1,1,2]) as (col1, col2, col3):
-        valor = col1.number_input("Valor", min_value=0.01, format="%.2f")
-        categoria = col2.selectbox("Categoria", ["Transporte", "Lazer", "Casa", "Alimentação", "Saúde", "Educação", "Outros", "Pendente"])
-        descricao = col3.text_area("Descrição")
+    col1, col2, col3, col4 = st.columns(4)
+    data = col1.date_input("Data", datetime.date.today())
+    entrada_saida = col2.selectbox("Entrada/Saída", ["Entrada", "Saída"])
+    tipo = col3.text_input("Tipo")
+    detalhes = col4.text_input("Detalhes")
+    
+    col1, col2, col3 = st.columns([1,1,2])
+    valor = col1.number_input("Valor", min_value=0.01, format="%.2f")
+    categoria = col2.selectbox("Categoria", ["Transporte", "Lazer", "Casa", "Alimentação", "Saúde", "Educação", "Outros", "Pendente"])
+    descricao = col3.text_area("Descrição")
     
     submitted = st.form_submit_button("Salvar Registro")
     
