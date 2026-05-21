@@ -2,8 +2,10 @@ import streamlit as st
 import datetime
 from utils.db import insert_record
 
-st.set_page_config(page_title="Registro Manual", page_icon="📝")
-st.title("Adicionar Lançamento Manual")
+st.set_page_config(page_title="Lançamento", page_icon="📝")
+st.title("Adicionar Lançamento")
+
+tab1, tab2 = st.tabs(["Manual", "Importar Extrato"])
 
 with st.form("manual_entry_form"):
     col1, col2, col3, col4 = st.columns(4)
