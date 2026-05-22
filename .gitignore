@@ -1,6 +1,6 @@
 #
 .streamlit/secrets.toml
-myfinance/
+.myfinance/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
