@@ -128,7 +128,7 @@ with tab2:
                     'tipo': df_parsed['Tipo'],
                     'detalhes': df_parsed['Detalhes'],
                     'valor': df_parsed['valor'],
-                    'categoria': '',
+                    'categoria': None,
                     'descricao': ''
                 })
                 
