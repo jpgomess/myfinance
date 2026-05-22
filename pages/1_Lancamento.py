@@ -149,7 +149,7 @@ with tab2:
                     df_final,
                     column_config=column_config,
                     hide_index=True,
-                    use_container_width=True,
+                    width='stretch',
                     key="import_editor"
                 )
                 
