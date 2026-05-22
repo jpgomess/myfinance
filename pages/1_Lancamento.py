@@ -132,8 +132,26 @@ with tab2:
                     'descricao': ''
                 })
                 
-                st.subheader("Dados Prontos para Importação")
-                st.dataframe(df_final)
+                st.subheader("Categorize os Lançamentos Antes da Importação")
+                
+                categorias_opcoes = ["Transporte", "Lazer", "Casa", "Alimentação", "Saúde", "Educação", "Outros", "Pendente"]
+                column_config = {
+                    "data": st.column_config.TextColumn("Data", disabled=True),
+                    "entrada_saida": st.column_config.TextColumn("Entrada/Saída", disabled=True),
+                    "tipo": st.column_config.TextColumn("Tipo", disabled=True),
+                    "detalhes": st.column_config.TextColumn("Detalhes", disabled=True),
+                    "valor": st.column_config.NumberColumn("Valor", format="R$ %.2f", disabled=True),
+                    "categoria": st.column_config.SelectboxColumn("Categoria", options=categorias_opcoes, required=True),
+                    "descricao": st.column_config.TextColumn("Descrição")
+                }
+                
+                edited_df = st.data_editor(
+                    df_final,
+                    column_config=column_config,
+                    hide_index=True,
+                    use_container_width=True,
+                    key="import_editor"
+                )
                 
                 if st.button("Confirmar Importação no Supabase"):
                     progress_bar = st.progress(0)
@@ -142,9 +160,9 @@ with tab2:
                     inserted = 0
                     duplicates = 0
                     errors = 0
-                    total = len(df_final)
+                    total = len(edited_df)
                     
-                    for idx, row in df_final.iterrows():
+                    for idx, row in edited_df.iterrows():
                         # Lógica de Deduplicação
                         is_dup = check_duplicate(
                             row['data'], 
