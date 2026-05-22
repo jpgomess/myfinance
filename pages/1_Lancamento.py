@@ -49,15 +49,34 @@ with tab2:
 
     if uploaded_file is not None:
         try:
-            # Lendo o arquivo (tenta CSV com separador ponto e vírgula padrão do BB, depois Excel)
-            if uploaded_file.name.endswith('.csv'):
-                df = pd.read_csv(uploaded_file, sep=';', encoding='utf-8')
-                # Fallback se não separar corretamente
-                if len(df.columns) == 1:
-                    uploaded_file.seek(0)
-                    df = pd.read_csv(uploaded_file, sep=',', encoding='utf-8')
+            # Lendo o arquivo com suporte a múltiplas codificações (UTF-8 e Latin-1)
+            def load_csv(file_obj):
+                file_obj.seek(0)
+                try:
+                    df_temp = pd.read_csv(file_obj, sep=';', encoding='utf-8')
+                    if len(df_temp.columns) <= 1:
+                        file_obj.seek(0)
+                        df_temp = pd.read_csv(file_obj, sep=',', encoding='utf-8')
+                    return df_temp
+                except UnicodeDecodeError:
+                    file_obj.seek(0)
+                    df_temp = pd.read_csv(file_obj, sep=';', encoding='latin-1')
+                    if len(df_temp.columns) <= 1:
+                        file_obj.seek(0)
+                        df_temp = pd.read_csv(file_obj, sep=',', encoding='latin-1')
+                    return df_temp
+
+            if uploaded_file.name.lower().endswith('.csv'):
+                df = load_csv(uploaded_file)
             else:
-                df = pd.read_excel(uploaded_file)
+                try:
+                    df = pd.read_excel(uploaded_file)
+                except Exception as read_ex:
+                    # Em alguns casos, arquivos de bancos são CSVs com a extensão .xls ou .xlsx
+                    try:
+                        df = load_csv(uploaded_file)
+                    except Exception:
+                        raise read_ex
                 
             st.subheader("Pré-visualização dos Dados Originais")
             st.dataframe(df.head())
