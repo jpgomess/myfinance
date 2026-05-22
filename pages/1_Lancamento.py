@@ -1,6 +1,7 @@
 import streamlit as st
+import pandas as pd
 import datetime
-from utils.db import insert_record
+from utils.db import insert_record, check_duplicate
 
 st.set_page_config(page_title="MyFinance-Lançamento", page_icon="📝")
 st.title("Adicionar Lançamento")
