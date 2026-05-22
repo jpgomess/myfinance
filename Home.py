@@ -1,6 +1,11 @@
+import plotly.express as px
 import streamlit as st
 import pandas as pd
-import plotly.express as px
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from utils.db import fetch_all_data
 
 st.set_page_config(page_title="MyFinance Dashboard", page_icon="💰", layout="wide")
