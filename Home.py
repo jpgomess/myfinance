@@ -37,7 +37,7 @@ else:
         if not df_saidas.empty:
             df_grouped = df_saidas.groupby("categoria")['valor'].sum().reset_index()
             fig = px.pie(df_grouped, values='valor', names='categoria', hole=0.4)
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
         else:
             st.write("Nenhuma saída registrada para exibir no gráfico.")
             
@@ -45,9 +45,9 @@ else:
         st.subheader("Histórico Recente")
         st.dataframe(
             df.sort_values(by="data", ascending=False).drop(columns=['id'], errors='ignore').head(20),
-            use_container_width=True
+            width="stretch"
         )
 
     st.markdown("---")
     st.subheader("Todos os Lançamentos")
-    st.dataframe(df.sort_values(by="data", ascending=False).drop(columns=['id'], errors='ignore'), use_container_width=True)
+    st.dataframe(df.sort_values(by="data", ascending=False).drop(columns=['id'], errors='ignore'), width="stretch")
