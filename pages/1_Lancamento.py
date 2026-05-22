@@ -78,8 +78,8 @@ with tab2:
                     except Exception:
                         raise read_ex
                 
-            st.subheader("Pré-visualização dos Dados Originais")
-            st.dataframe(df.head())
+            with st.expander("Mostrar Dados Originais"):
+                st.dataframe(df.head())
             
             # Colunas requeridas pelo extrato original
             required_cols = ['Data', 'Lançamento', 'Detalhes', 'Valor', 'Tipo Lançamento']
@@ -128,13 +128,13 @@ with tab2:
                     'tipo': df_parsed['Tipo'],
                     'detalhes': df_parsed['Detalhes'],
                     'valor': df_parsed['valor'],
-                    'categoria': 'Pendente',
+                    'categoria': '',
                     'descricao': ''
                 })
                 
                 st.subheader("Categorize os Lançamentos Antes da Importação")
                 
-                categorias_opcoes = ["Transporte", "Lazer", "Casa", "Alimentação", "Saúde", "Educação", "Outros", "Pendente"]
+                categorias_opcoes = sorted(["Transporte", "Lazer", "Casa", "Mercado", "Saúde", "Educação", "Outros"])
                 column_config = {
                     "data": st.column_config.TextColumn("Data", disabled=True),
                     "entrada_saida": st.column_config.TextColumn("Entrada/Saída", disabled=True),
