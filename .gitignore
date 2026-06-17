@@ -1,7 +1,5 @@
 #
 .streamlit/secrets.toml
-.myfinance/
-GEMINI.md
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
